@@ -77,3 +77,27 @@ application test coverage. Model and application source hashes were unchanged,
 and temporary input fixtures were removed. Host evidence is under
 `~/.pi/agent/integrations/pi-teaql/evidence/failure-recovery-20261024T163757Z/`.
 This is evidence for this observed run, not a guarantee of every model's behavior.
+
+## Automatic completion checks
+
+Protected ordinary Pi automatically runs missing `app_build` / `app_test`
+checks before settling after successful file edits. Results appear in a host
+completion report and start a continuation so a premature model `stop` cannot
+leave the edit without verification. See the package's
+[completion contract](../../packages/agent-context-kit/docs/pi-cli-policy.md#completion-verification-after-mutations)
+for cancellation, failure and bounded repair behavior.
+
+Final ordinary-Pi verification on 2026-10-25 (Asia/Shanghai) used the real
+`local-rocm` Qwen3.6-35B-A3B model with archive SHA-256
+`2f4e7ed0cb14a022b894c17a7dcc180d41f6814649c31a9f0de16890ef9af551`.
+In an isolated standalone Rust crate, the model read and edited one return
+value, then emitted `stop` without invoking verification. The host ran
+`app_build` and `app_test`: both exited 0, with **1 test passed, 0 failed**.
+The model continued automatically and reported these actual results. There was
+one user prompt and no follow-up prompting. The existing test, build manifest,
+Makefile, and `t003` model/application sources remained unchanged. Temporary
+project registration and files were removed after preserving the fixture and
+JSON evidence under
+`~/.pi/agent/integrations/pi-teaql/evidence/completion-final-20261024T165816Z/`.
+This demonstrates completion recovery; it does not establish that the separate
+`t003` application compiles or that its business tests pass.

@@ -410,7 +410,7 @@ npm pack --workspace @teaql/agent-context-kit
 
 The root check covers TypeScript, Node unit/integration tests, Skill grammar and
 installation contracts, and Python workspace/Hermes tests. The current verified
-run passed **141 tests**: 108 package unit tests, 19 integration tests, 7 root
+run passed **147 tests**: 113 package unit tests, 20 integration tests, 7 root
 contracts and 7 Python tests. Pi's provider checks use a deterministic local
 provider; the OpenCode SDK bridge uses a host-registry fixture. These are not paid
 model quality benchmarks, full TeaQL workflow proofs or measured token savings.

@@ -89,3 +89,23 @@ faux provider, using the same flags and inline policy extension. It verifies den
 generated reads, pruned searches, permitted writes/edits, disabled Shell and absent
 native SYSTEM/APPEND_SYSTEM context. Root `npm ci` and `npm run check` include this
 test and the existing Pi/OpenCode regressions. No paid provider is required.
+
+## Completion verification after mutations
+
+When the host registers both `app_build` and `app_test`, successful controlled
+`write`/`edit` calls invalidate previous verification. Before a completed run
+settles, the host invokes any missing fixed checks and appends their actual
+policy-filtered results as a visible `agent-context-kit-completion-report-v1`
+message. Pi then continues automatically so the model can report results or
+make a localized repair. A promise in assistant text never counts as a check.
+Calls already attempted for the current revision are not repeated; failures
+remain failures and may be reported as concrete blockers. Zero executed tests
+do not establish coverage. A later edit invalidates both checks again.
+
+The host allows at most three automatic verification rounds per submitted user
+request. At the limit it displays `VERIFICATION_INCOMPLETE`, including the
+missing checks, rather than continuing forever or claiming success. User
+cancellation and provider errors do not trigger automatic verification.
+Read-only work and failed mutations do not create verification obligations.
+State is stored in host custom session entries and restored from the active
+branch. These checks use only registered capabilities; no shell is enabled.

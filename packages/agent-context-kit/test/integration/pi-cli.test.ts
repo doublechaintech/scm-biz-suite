@@ -51,3 +51,33 @@ assert.equal(blockedResults,2);
 	assert.equal(readFileSync(join(root,"src/main.rs"),"utf8"),"value = 2;");
 	assert.equal(readFileSync(join(root,"generated/private.rs"),"utf8"),"NATIVE_CLI_PRIVATE_SENTINEL");
 });
+
+test("native Pi print continues after premature stop, verifies edits and rechecks a localized repair", (t) => {
+ const base=mkdtempSync(join(tmpdir(),"pi-completion-cli-")); const root=join(base,"project"); mkdirSync(root); mkdirSync(join(root,"src"));
+ t.after(()=>rmSync(base,{recursive:true,force:true})); writeFileSync(join(root,"src/main.rs"),"value = 1;");
+ const sdk=import.meta.resolve("@earendil-works/pi-coding-agent"); const main=new URL("main.js",sdk).href;
+ const ai=import.meta.resolve("@earendil-works/pi-ai/providers/faux"); const entry=new URL("../../src/adapters/pi-cli.ts",import.meta.url).href;
+ const runner=join(base,"runner.mjs");
+ writeFileSync(runner,`
+import assert from 'node:assert/strict';
+import {readFileSync} from 'node:fs';
+import {main} from ${JSON.stringify(main)};
+import {fauxProvider,fauxAssistantMessage,fauxToolCall} from ${JSON.stringify(ai)};
+import {createPiContextCliExtension,preparePiContextCliArgs} from ${JSON.stringify(entry)};
+const faux=fauxProvider({provider:'completion-test',models:[{id:'fixture',name:'Fixture'}],tokensPerSecond:1000000,tokenSize:{min:1000,max:1000}});
+const calls=[];let requests=0;
+const edit=value=>fauxAssistantMessage(fauxToolCall('edit',{path:'src/main.rs',edits:[{oldText:'value = '+(value-1),newText:'value = '+value}]},{id:'edit-'+value}),{stopReason:'toolUse'});
+faux.setResponses([
+ ()=>{requests++;return edit(2);},
+ ()=>{requests++;return fauxAssistantMessage('I will verify the edit now.',{stopReason:'stop'});},
+ context=>{requests++;assert.match(JSON.stringify(context),/host_completion_check/);assert.match(JSON.stringify(context),/E0308/);return edit(3);},
+ ()=>{requests++;return fauxAssistantMessage('The repair is done. I will run tests.',{stopReason:'stop'});},
+ context=>{requests++;assert.match(JSON.stringify(context),/host_completion_check/);assert.deepEqual(calls,['app_build','app_test','app_build','app_test']);return fauxAssistantMessage('Verified after repair. Zero tests executed.',{stopReason:'stop'});}
+]);
+const checks=['app_build','app_test'].map(name=>({name,label:name,description:'Fixed verification',parameters:{type:'object',properties:{},additionalProperties:false},execute:async()=>{calls.push(name);if(name==='app_build'&&readFileSync('src/main.rs','utf8').includes('2'))throw new Error('{"status":"failed","diagnostics":[{"code":"E0308"}]}');return {content:[{type:'text',text:'{"status":"passed","tests":{"passed":0,"failed":0,"skipped":0}}'}],details:{status:'passed'}};}}));
+await main(preparePiContextCliArgs(['--offline','--provider','completion-test','--model','fixture','--no-session','--print','Edit and verify'],{fileArgs:[]}),{extensionFactories:[pi=>pi.registerProvider(faux.provider),createPiContextCliExtension(checks)]});
+assert.equal(requests,5); assert.equal(readFileSync('src/main.rs','utf8'),'value = 3;');
+`);
+ const run=spawnSync(process.execPath,["--experimental-strip-types",runner],{cwd:root,encoding:"utf8",timeout:30000,maxBuffer:256*1024,env:{...process.env,PI_CODING_AGENT_DIR:join(base,"agent"),PI_OFFLINE:"1",PI_SKIP_VERSION_CHECK:"1",NO_COLOR:"1"}});
+ assert.equal(run.status,0,`${run.stderr}\n${run.stdout}`); assert.match(run.stdout,/Verified after repair/);
+});
