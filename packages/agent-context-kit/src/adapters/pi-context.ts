@@ -21,6 +21,7 @@ import { loadContextPolicyFiles } from "../context-loading.ts";
 export { loadContextPolicyFiles } from "../context-loading.ts";
 
 import { ContextAccessDenied, ContextFiles } from "../context-files.ts";
+import { ContextReadError, contextImageMime, inspectContextRead } from "../context-read.ts";
 import { runControlledTask, snapshotTaskCommand, type ControlledTaskCommands } from "../controlled-tasks.ts";
 import { contextPolicyFeedback, contextPolicyInstruction } from "../policy-feedback.ts";
 import { registerPiPolicyFeedback } from "./pi-policy-feedback.ts";
@@ -34,18 +35,9 @@ function result(data: unknown) {
 }
 
 function errorResult(error: unknown) {
-	return result(error instanceof ContextAccessDenied ? error.decision : {
+	return result(error instanceof ContextReadError ? error.details : error instanceof ContextAccessDenied ? error.decision : {
 		status: "policyError", reason: "Context operation could not be completed; content was not returned.",
 	});
-}
-
-function imageMime(body: Buffer): string | undefined {
-	if (body.subarray(0, 8).equals(Buffer.from([137, 80, 78, 71, 13, 10, 26, 10]))) return "image/png";
-	if (body[0] === 0xff && body[1] === 0xd8 && body[2] === 0xff) return "image/jpeg";
-	if (/^GIF8[79]a/.test(body.subarray(0, 6).toString("ascii"))) return "image/gif";
-	if (body.subarray(0, 4).toString() === "RIFF" && body.subarray(8, 12).toString() === "WEBP") return "image/webp";
-	if (body.subarray(0, 2).toString() === "BM") return "image/bmp";
-	return undefined;
 }
 
 /** Pi 1.4 tool replacements. Install all four together; original search tools must not remain active. */
@@ -55,7 +47,7 @@ export function createContextPolicyTools(projectRoot: string): ToolDefinition<an
 		operations: {
 			access: async (path) => { files.require(path); },
 			readFile: async (path) => files.read(path, 10 * 1024 * 1024),
-			detectImageMimeType: async (path) => imageMime(files.read(path, 10 * 1024 * 1024)),
+			detectImageMimeType: async (path) => contextImageMime(files.read(path, 10 * 1024 * 1024)),
 		},
 	});
 	const read: ToolDefinition<any, any> = {
@@ -64,6 +56,7 @@ export function createContextPolicyTools(projectRoot: string): ToolDefinition<an
 		promptSnippet: "Read permitted files and images",
 		async execute(id, args: ReadToolInput, signal, _onUpdate, ctx) {
 			try {
+				inspectContextRead(files, args.path);
 				const decision = files.require(args.path);
 				// Pin the root and recheck inside native read operations, including normalized image paths.
 				const output = await nativeRead.execute(id, { ...args, path: decision.path }, signal, undefined, { ...ctx, cwd: files.root });

@@ -47,4 +47,8 @@ test("Pi tracks excluded directory scope across tools and aliases without trusti
 	assert.equal(fresh.details.attemptsForScope,1);
 	hooks.get("session_start")!({});
 	assert.equal(hooks.get("context_with_system")!({messages:[]}),undefined);
+	for(const status of ["policyError","contentTooLarge","invalidPattern","invalidInput","denied","executionError"]){
+		const failed=hooks.get("tool_result")!({toolName:"read",input:{path:"absent.txt"},details:{status,path:join(root,"absent.txt")},content:[]});
+		assert.equal(failed.isError,true,status);assert.equal(failed.details.retryable,false,status);
+	}
 });

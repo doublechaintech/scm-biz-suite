@@ -75,6 +75,15 @@ create denial controls. This feedback reduces ambiguous retries but cannot guara
 that every model will never attempt another call; all such calls remain blocked.
 The task is not automatically terminated after two denials.
 
+The same supported Pi error flag now applies to ordinary file-operation failures,
+not only directory exclusions. A bounded metadata/header inspection distinguishes
+`UNSUPPORTED_BINARY`, `FILE_TOO_LARGE`, `FILE_NOT_FOUND`, `UNSUPPORTED_FILE_TYPE`
+and `READ_ACCESS_DENIED`. It keeps images supported, does not load oversized bodies,
+and never returns binary header bytes. Other read/invalid-input errors also have
+`retryable: false`. These reminders are scoped to the file/request, not its whole
+directory, and are cleared when the file changes or a corrected request succeeds.
+Use the registered build/test tools for diagnostics instead of reading executables.
+
 The integration test runs native Pi `main` in a separate process with a real local
 faux provider, using the same flags and inline policy extension. It verifies denied
 generated reads, pruned searches, permitted writes/edits, disabled Shell and absent

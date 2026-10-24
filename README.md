@@ -321,6 +321,14 @@ denial as permanent authority: every access checks the current policy. A broad
 search with skipped subtrees still returns permitted results normally. These
 signals reduce ambiguity; they do not guarantee that every model stops retrying.
 
+Read failures also carry explicit non-retryable codes: binary executables,
+oversized text, missing files, unsupported targets and permission failures are
+tool errors rather than successful empty results. Pi probes at most 512 header
+bytes before loading a body. The Rust integration's `app_build` returns filtered
+compiler codes/locations and permitted source excerpts; `app_test` reports real
+test counts and explicitly identifies zero-test runs. Executables under `target/`
+are never substitutes for compiler diagnostics.
+
 ## Agent feature activation
 
 **Repository snapshot: 2026-10-24.** These are capabilities implemented in this
@@ -402,7 +410,7 @@ npm pack --workspace @teaql/agent-context-kit
 
 The root check covers TypeScript, Node unit/integration tests, Skill grammar and
 installation contracts, and Python workspace/Hermes tests. The current verified
-run passed **137 tests**: 105 package unit tests, 19 integration tests, 6 root
+run passed **141 tests**: 108 package unit tests, 19 integration tests, 7 root
 contracts and 7 Python tests. Pi's provider checks use a deterministic local
 provider; the OpenCode SDK bridge uses a host-registry fixture. These are not paid
 model quality benchmarks, full TeaQL workflow proofs or measured token savings.

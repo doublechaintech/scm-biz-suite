@@ -4,6 +4,7 @@ import { readFileSync } from 'node:fs';
 import { dirname, isAbsolute, join, relative, resolve, sep } from 'node:path';
 import { fileURLToPath, pathToFileURL } from 'node:url';
 import { Type } from 'typebox';
+import { rustDiagnosticSummaries } from './rust-make.mjs';
 
 const ACTIONS = ['query','create','update','delete','expression','list-page','debug'];
 const fail = (code, message) => { throw new Error(JSON.stringify({status:'blocked',code,retryable:false,message})); };
@@ -122,10 +123,13 @@ export async function createTeaqlTools(config) {
       return {content:[{type:'text',text:JSON.stringify(result)}],details:result};
     }};
   const checks=['build','test'].map(task=>({name:`app_${task}`,label:`Application ${task}`,executionMode:'sequential',parameters:Type.Object({},{additionalProperties:false}),
-    description:`Run the fixed application make ${task} target through controlled diagnostics. No command arguments or raw process output are exposed.`,
+    description:`Run the fixed application make ${task} target. Use app_build to get compiler errors; target/debug executables are not error logs. Returns policy-filtered Rust locations/codes, allowed source excerpts and real test counts. No arbitrary commands or raw process output.`,
     async execute(_id,args,signal){
       if(!args||Object.keys(args).length)fail('INVALID_ARGUMENTS','This tool accepts an empty object only.');
-      const result=await runControlledTask(root,task,{executable:config.makePath??'/usr/bin/make',args:['-C',app,task]},signal);
+      const adapter=fileURLToPath(new URL('./rust-make.mjs',import.meta.url));
+      const result=await runControlledTask(root,task,{executable:process.execPath,args:[adapter,config.makePath??'/usr/bin/make',app,task,...(config.evidenceDirectory?[config.evidenceDirectory]:[])],includeAllowedSource:true,diagnosticSummaries:rustDiagnosticSummaries},signal);
+      if(task==='test'&&result.tests&&result.tests.passed+result.tests.failed+result.tests.skipped===0)result.testingLimitation='No test cases were executed. A successful exit does not establish business-test coverage.';
+      if(result.status!=='passed')throw new Error(JSON.stringify(result));
       return {content:[{type:'text',text:JSON.stringify(result)}],details:result};
     }}));
   return [teaql,...checks];

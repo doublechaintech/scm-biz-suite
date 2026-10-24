@@ -42,3 +42,26 @@ test('controlled TeaQL tool verifies each client call, gates changed models, res
  const calls=readFileSync(join(root,'calls.jsonl'),'utf8').trim().split('\n').map(JSON.parse);
  for(let index=0;index<calls.length;index++){if(calls[index][1]!=='--version')assert.deepEqual(calls[index-1],['teaql','--version']);}
 });
+
+test('Rust Make diagnostics expose metadata and permitted snippets, suppress excluded content, and report zero tests explicitly',async t=>{
+ const {parseRustMakeOutput}=await import('../../integrations/pi-teaql/rust-make.mjs');
+ const root=mkdtempSync(join(tmpdir(),'rust-make-diagnostics-'));t.after(()=>rmSync(root,{recursive:true,force:true}));
+ for(const dir of ['models','app/src','app/lib'])mkdirSync(join(root,dir),{recursive:true});
+ writeFileSync(join(root,'models/model.xml'),'<root name="test-service"><school/></root>');
+ writeFileSync(join(root,'app/src/main.rs'),'fn main() { let value: u32 = "wrong"; }\n');
+ writeFileSync(join(root,'app/lib/.agent-no-read.md'),'Use Assist.');
+ writeFileSync(join(root,'app/lib/private.rs'),'EXCLUDED_DIAGNOSTIC_CANARY');
+ const fakeMake=join(root,'make.mjs');
+ writeFileSync(fakeMake,`#!${process.execPath}\nif(process.argv.at(-1)==='build'){console.error('error[E0308]: PRIVATE_COMPILER_MESSAGE\\n --> src/main.rs:1:13\\nPRIVATE_ASSERTION_VALUE\\nerror[E0599]: PRIVATE_GENERATED_MESSAGE\\n --> lib/private.rs:1:1');process.exitCode=1;}else{console.log('test result: ok. 0 passed; 0 failed; 0 ignored; 0 measured; 0 filtered out; finished in 0.00s');}`);chmodSync(fakeMake,0o700);
+ const tools=await createTeaqlTools({projectRoot:root,cargoPath:process.execPath,contextKitPath,model:'models/model.xml',outputs:['app'],markerManifest:'context-markers.json',appDirectory:'app',makePath:fakeMake});
+ const build=tools.find(tool=>tool.name==='app_build');let failure;
+ try{await build.execute('test',{},new AbortController().signal);assert.fail('Expected build failure');}catch(error){failure=JSON.parse(error.message);}
+ assert.equal(failure.status,'failed');assert.equal(failure.exitCode,1);
+ assert.equal(failure.diagnostics[0].code,'E0308');assert.equal(failure.diagnostics[0].access,'allow');assert.ok(failure.diagnostics[0].source.length);
+ assert.equal(failure.diagnostics[1].access,'excluded');assert.equal(failure.diagnostics[1].source,undefined);
+ assert.doesNotMatch(JSON.stringify(failure),/PRIVATE_COMPILER_MESSAGE|PRIVATE_ASSERTION_VALUE|PRIVATE_GENERATED_MESSAGE|EXCLUDED_DIAGNOSTIC_CANARY/);
+ const result=await tools.find(tool=>tool.name==='app_test').execute('test',{},new AbortController().signal);
+ assert.deepEqual(result.details.tests,{passed:0,failed:0,skipped:0});assert.match(result.details.testingLimitation,/No test cases/);
+ const metadata=parseRustMakeOutput('error[E0432]: hidden message\n --> src/main.rs:9:2\ntest result: FAILED. 2 passed; 1 failed; 3 ignored; 0 measured; 0 filtered out;','/project/app');
+ assert.equal(metadata[0].path,'/project/app/src/main.rs');assert.equal(metadata[0].code,'E0432');assert.deepEqual(metadata.at(-1),{version:1,type:'testSummary',passed:2,failed:1,skipped:3});
+});
